@@ -27,6 +27,10 @@ def validate(text):
         raise ValueError("entry must be 1-200 characters")
     if text.strip() == "":
         raise ValueError("entry must not be whitespace only")
+    if text != text.strip():
+        raise ValueError("entry must not have leading or trailing whitespace")
+    if not any(ch.isalpha() for ch in text):
+        raise ValueError("entry must contain at least one alphabetic character")
     if any(ord(ch) < 0x20 or ord(ch) == 0x7F for ch in text):
         raise ValueError("entry must not contain control characters")
     if "\r" in text:
